@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<config>
+    <tabs>
+        <myconf_vijaystore translate="label" module="like">
+            <label>VijayStore</label>
+            <sort_order>100</sort_order>
+        </myconf_vijaystore>
+    </tabs>	
+	
+    <sections>
+        <like_tab translate="label" module="like">
+            <label>Product Like</label>
+            <tab>myconf_vijaystore</tab>
+            <sort_order>1</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>1</show_in_store>
+            <groups>
+                <like_setting translate="label comment">
+                    <label>Product Like Setting</label>
+                    <sort_order>503</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                      <like_active translate="label comment">
+                            <label>Product Like</label>
+							<frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_enabledisable</source_model>
+							<comment>Product Like Enable/Disable</comment>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </like_active>
+                     </fields>
+                </like_setting>		
+            </groups>
+        </like_tab>
+    </sections>
+</config>

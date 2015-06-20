@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+    <modules>
+        <Vijay_Like>
+            <version>1.0.0</version>
+        </Vijay_Like>
+    </modules>
+
+	<frontend>
+		<routers>
+			<like>
+				<use>standard</use>
+				<args>
+					<module>Vijay_Like></module>
+					<frontName>like</frontName>
+				</args>
+			</like>
+		</routers>
+		<layout>
+			<updates>
+				<like>
+					<file>vijay/like.xml</file>
+				</like>
+			</updates>
+		</layout>
+	</frontend>
+
+    <global>
+		<models>
+            <like>
+                <class>Vijay_Like_Model</class>
+                <resourceModel>like_resource</resourceModel>
+            </like>
+			
+            <like_resource>
+                <class>Vijay_Like_Model_Resource</class>
+                <entities>
+				    <like>
+                        <table>product_like</table>
+                    </like>
+                </entities>
+            </like_resource>
+        </models>
+		
+        <resources>
+            <like_setup>
+                <setup>
+                    <module>Vijay_Like</module>
+                </setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </like_setup>
+            <like_write>
+                <connection>
+                    <use>core_write</use>
+                </connection>
+            </like_write>
+            <like_read>
+                <connection>
+                    <use>core_read</use>
+                </connection>
+            </like_read>
+        </resources>
+		
+		<!-- Initialize the Block class -->
+		<blocks>
+            <like>
+                <class>Vijay_Like_Block</class>
+            </like>
+        </blocks>
+		<!-- Initialize the Model class -->
+		<models>
+            <like>
+                <class>Vijay_Like_Model</class>
+            </like>
+        </models>
+		<!-- Initialize the Helper class -->
+		<helpers>
+			<like>
+				<class>Vijay_Like_Helper</class>
+			</like>
+		</helpers>		
+    </global>
+	
+	<admin>
+        <routers>
+            <like>
+                <use>admin</use>
+                <args>
+                    <module>Vijay_Like</module>
+                    <frontName>like</frontName>
+                </args>
+            </like>
+        </routers>
+    </admin>
+ 	
+	<adminhtml>
+		<layout>
+			<updates>
+				<like module="like">
+					<file>vijay/like.xml</file>
+				</like>
+			</updates>
+		</layout>
+	</adminhtml>
+	<default>
+		<like_tab>
+			<like_setting>
+				<like_active>1</like_active>
+			</like_setting>
+		</like_tab>
+	</default>	
+</config>

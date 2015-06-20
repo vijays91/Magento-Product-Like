@@ -1,0 +1,52 @@
+<?xml version="1.0"?>
+<config>
+	<menu>
+        <like module="like">
+            <title>Product Like</title>
+            <sort_order>71</sort_order>
+            <children>
+                <dynamic_fields module="like">
+                    <title>Product Like Reports</title>
+                    <sort_order>20</sort_order>
+                    <action>like/adminhtml_like/</action>
+                </dynamic_fields>
+				<settings translate="title" module="like">
+                    <title>General Settings</title>
+                    <action>adminhtml/system_config/edit/section/like_tab</action>
+                    <sort_order>40</sort_order>
+                </settings>
+            </children>
+        </like>
+    </menu>
+	
+    <acl>
+        <resources>
+			<all>
+                <title>Allow Everything</title>
+            </all>
+            <admin>
+			    <children>
+					<like>
+						<title>Product Like</title>
+						<children>
+							<dynamic_fields>
+								<title>Product Like Reports</title>
+							</dynamic_fields>
+						</children>
+					</like>		
+                    <system>
+                        <children>
+                            <config>
+                                <children>
+                                    <like_tab>
+                                        <title>Product Like Setting</title>
+                                    </like_tab>				
+                                </children>
+                            </config>
+                        </children>
+                    </system>
+                </children>
+            </admin>
+        </resources>
+    </acl>
+</config>

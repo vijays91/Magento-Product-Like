@@ -1,0 +1,82 @@
+<link rel="stylesheet" href="<?php echo $this->getSkinUrl('vijay/css/like.css'); ?>" />
+<?php 
+$product_id  = $this->getRequest()->getParam('id');
+$customer_id = $this->getuser();
+$like_count  = $this->getprodlikes($product_id);
+$user_like   = $this->getuserlike($product_id, $customer_id);
+$total_order = $this->getTotalOrder($product_id);
+?>
+
+<?php $style_unlike = (!$user_like) ? "display:inline-block;":"display:none;"; ?> 
+	<div class="unlike"  id="unlike" onclick="product_like('<?php echo $customer_id?>', <?php echo $product_id ?>, 'unlike');" style="<?php echo $style_unlike; ?>">
+	<span class="round-figure" title="Unlike">
+		<img src="<?php echo $this->getSkinUrl('vijay/image/like-icon-full.png'); ?>" alt='unlike' />
+	</span>
+	<span class="figure-counts" id="unlike_count"><?php echo $like_count;?>  Like(s)</span>
+	</div>
+
+<?php $style_like = ($user_like) ? "display:inline-block;":"display:none;"; ?> 
+<div class="like" id="like" onclick="product_like('<?php echo $customer_id?>', <?php echo $product_id ?>, 'like');" style="<?php echo $style_like; ?>">
+	<span class="round-figure" title="Like">
+		<img src="<?php echo $this->getSkinUrl('vijay/image/like-icon.png'); ?>" alt='like' />
+	</span>
+	<span class="figure-counts" id="like_count"><?php echo $like_count;?>  Like(s)</span>
+</div>
+
+
+<div class="orders-symbol">
+	<span class="round-figure">
+      <svg width="19px" height="19px" viewBox="0 0 19 19" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
+        <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
+          <g id="Product-Page-Grid-16" sketch:type="MSArtboardGroup" transform="translate(-40.000000, -93.000000)" fill="#00D7FF">
+            <g id="460-Liked-+-Oval-15-+-Rectangle-30-+-Rectangle-33-+-icon_28217-4-+-200-Orders-+-Imported-Layers-2-+-Oval-6-+-1" sketch:type="MSLayerGroup" transform="translate(39.000000, 92.000000)">
+              <g id="200-Orders-+-Imported-Layers-2-+-Oval-6-+-1" transform="translate(0.000000, 0.500000)" sketch:type="MSShapeGroup">
+                <g id="Imported-Layers-2-+-Oval-6-+-1" transform="translate(0.000000, 0.500000)">
+                  <g id="Imported-Layers-2" transform="translate(0.183320, 0.000000)">
+                    <path id="Fill-1" d="M13.3274702,5.08963322 L14.2484091,5.08963322 C14.2484091,2.29002627 12.3238352,0.0124039314 9.95812416,0.0124039314 C7.59268693,0.0124039314 5.66838687,2.29002627 5.66838687,5.08963322 L6.58932576,5.08963322 C6.58932576,2.8914187 8.10085724,1.10259056 9.95812416,1.10259056 C11.8156649,1.10259056 13.3274702,2.89107887 13.3274702,5.08963322 Z"></path>
+                    <path id="Fill-2" d="M18.4946077,5.69125222 L1.42306452,5.69125222 C1.17711206,5.69125222 0.977765153,6.01029945 0.977765153,6.40388356 L2.58261727,18.1619609 C2.58261727,18.555545 2.78201894,18.8745923 3.0279714,18.8745923 L16.9449046,18.8745923 C17.190857,18.8745923 17.3902039,18.555545 17.3902039,18.1619609 L18.9399618,6.40388356 C18.9399618,6.01029945 18.7405602,5.69125222 18.4946077,5.69125222 L18.4946077,5.69125222 Z M6.26259399,8.09954062 C5.97523872,8.09954062 5.74226571,7.86318626 5.74226571,7.57160892 C5.74226571,7.28003157 5.97523872,7.04367721 6.26259399,7.04367721 C6.54989451,7.04367721 6.78286751,7.28003157 6.78286751,7.57160892 C6.78286751,7.86318626 6.54989451,8.09954062 6.26259399,8.09954062 L6.26259399,8.09954062 Z M13.7239734,8.09954062 C13.4366181,8.09954062 13.2036999,7.86318626 13.2036999,7.57160892 C13.2036999,7.28003157 13.4366181,7.04367721 13.7239734,7.04367721 C14.0112739,7.04367721 14.2442469,7.28003157 14.2442469,7.57160892 C14.2442469,7.86318626 14.0112739,8.09954062 13.7239734,8.09954062 L13.7239734,8.09954062 Z"></path>
+                  </g>
+                </g>
+              </g>
+            </g>
+          </g>
+        </g>
+      </svg>
+	  </span>
+	  <span class="figure-counts" id="order"><?php echo $total_order; ?> Order(s)</span>
+	  </div>
+<script>
+function product_like(cid, pid, arg) {
+	if(cid == null || cid == '' )
+	{	
+		alert('Please Login as Customer...');
+		return false;
+	}
+	if(cid && pid && arg) {
+		var post_url = "<?php echo Mage::getBaseUrl()."like/index/like";?>";
+		new Ajax.Request(post_url, {
+			method:'post',
+			parameters: {cid:cid, pid:pid, arg:arg},
+			onSuccess: function(transport) {
+				var response = transport.responseText || "no response text";
+				obj = JSON.parse(response);
+				if(obj.succ == 200) {
+					if(obj.arg == "like") {
+						$("unlike").setStyle({display: 'inline-block'});
+						$("like").setStyle({display: 'none'});
+						$("unlike_count").update(obj.like_count +'  Like(s)');
+						$("like_count").update(obj.like_count +'  Like(s)');
+					} else if(obj.arg == "unlike") {
+						$("like").setStyle({display: 'inline-block'});
+						$("unlike").setStyle({display: 'none'});
+						$("like_count").update(obj.like_count +'  Like(s)');
+						$("unlike_count").update(obj.like_count +'  Like(s)');
+					}
+				}
+			},
+			onFailure: function() { alert('Something went wrong...'); }
+		});
+	}
+}
+</script>
+			
