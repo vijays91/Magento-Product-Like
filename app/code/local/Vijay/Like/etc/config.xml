@@ -11,7 +11,7 @@
 			<like>
 				<use>standard</use>
 				<args>
-					<module>Vijay_Like></module>
+					<module>Vijay_Like</module>
 					<frontName>like</frontName>
 				</args>
 			</like>
